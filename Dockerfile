@@ -7,25 +7,22 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
 RUN npm install -g pnpm && pnpm install
 
-# 빌드
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-RUN npm install -g pnpm && pnpm build
-
-# 프로덕션 이미지
+# 개발 이미지
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV PORT 3001
+ENV NODE_ENV development
+ENV PORT 3000
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# 글로벌로 pnpm 설치
+RUN npm install -g pnpm
 
-EXPOSE 3001
+# 소스 코드 복사
+COPY . .
+# 의존성 복사
+COPY --from=deps /app/node_modules ./node_modules
 
-CMD ["node", "server.js"] 
+EXPOSE 3000
+
+# 개발 서버 실행 - shell 형식으로 변경
+CMD ["sh", "-c", "pnpm dev"]

@@ -2,12 +2,40 @@
 
 import { BsGithub, BsTwitter } from "react-icons/bs";
 import { Header, Item } from "@/types/landing";
+import { FaDownload, FaUpload } from "react-icons/fa";
 
 import DropDown from "./dropdown";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import RegisterMcpModal from "@/components/RegisterMcpModal";
+import ServerManageModal from "@/components/ServerManageModal";
+import { Project } from "@/types/project";
 
 export default ({ header }: { header: Header }) => {
   const pathname = usePathname();
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isServerManageModalOpen, setIsServerManageModalOpen] = useState(false);
+
+  const openRegisterModal = () => setIsRegisterModalOpen(true);
+  const closeRegisterModal = () => setIsRegisterModalOpen(false);
+  
+  const openServerManageModal = () => setIsServerManageModalOpen(true);
+  const closeServerManageModal = () => setIsServerManageModalOpen(false);
+
+  const handleSubmitProject = async (projectData: Project) => {
+    const response = await fetch('/api/projects', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(projectData),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || '프로젝트 등록에 실패했습니다.');
+    }
+    
+    return response.json();
+  };
 
   return (
     <header className="mx-auto w-full max-w-7xl px-4 md:px-8 mt-4 md:mt-4">
@@ -45,6 +73,23 @@ export default ({ header }: { header: Header }) => {
                 </li>
               );
             })}
+            
+            <li className="mx-4 hidden md:block">
+              <button
+                onClick={openRegisterModal}
+                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
+              >
+                서버 등록
+              </button>
+            </li>
+            <li className="mx-4 hidden md:block">
+              <button
+                onClick={openServerManageModal}
+                className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white flex items-center"
+              >
+                <FaDownload className="mr-1" /> 서버 관리
+              </button>
+            </li>
           </ul>
         </div>
         {/* <a
@@ -77,6 +122,19 @@ export default ({ header }: { header: Header }) => {
           <DropDown />
         </div> */}
       </div>
+
+      {/* MCP 서버 등록 모달 */}
+      <RegisterMcpModal
+        isOpen={isRegisterModalOpen}
+        onClose={closeRegisterModal}
+        onSubmit={handleSubmitProject}
+      />
+
+      {/* 서버 관리 모달 */}
+      <ServerManageModal
+        isOpen={isServerManageModalOpen}
+        onClose={closeServerManageModal}
+      />
     </header>
   );
 };

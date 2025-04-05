@@ -43,18 +43,39 @@
 
 .markdown pre {
   margin-bottom: 16px;
-  /* padding: 16px; */
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  /* background-color: #1f2937; */
   border-radius: 6px;
+  max-width: 100%;
+}
+
+/* 코드 블록 스타일 개선 */
+.markdown pre.hljs {
+  padding: 16px;
+  margin: 0;
+  background-color: #1f2937;
+  overflow-x: auto;
 }
 
 .markdown code {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 85%;
-  border-radius: 6px;
+  font-size: 90%;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+}
+
+/* JSON 코드 블록 특별 스타일 */
+.markdown pre.hljs code.language-json .hljs-attr {
+  color: #9cdcfe;
+}
+
+.markdown pre.hljs code.language-json .hljs-string {
+  color: #ce9178;
+}
+
+.markdown pre.hljs code.language-json .hljs-number {
+  color: #b5cea8;
 }
 
 .markdown ul,

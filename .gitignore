@@ -45,3 +45,4 @@ wrangler.toml
 .vscode
 
 app/api/update-sitemaps
+mcp-file-search/

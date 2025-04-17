@@ -9,6 +9,11 @@ services:
       - "3001:3000"
     environment:
       - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
     env_file:
       - .env
     restart: always

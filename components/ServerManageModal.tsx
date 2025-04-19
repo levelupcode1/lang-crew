@@ -21,8 +21,9 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useRef, useCallback, useEffect } from "react";
-import { FaDownload, FaUpload, FaSpinner, FaTrash, FaLock } from "react-icons/fa";
+import { FaDownload, FaUpload, FaSpinner, FaTrash, FaLock, FaEdit } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import { Project } from "@/types/project";
 
 interface ServerManageModalProps {
   isOpen: boolean;
@@ -34,6 +35,336 @@ interface ServerInfo {
   title: string;
   description: string;
   created_at: string;
+  // 수정 기능을 위한 추가 필드
+  name?: string;
+  url?: string;
+  author_name?: string;
+  tags?: string;
+  category?: string;
+  content?: string;
+}
+
+// 서버 수정 모달 컴포넌트
+interface EditServerModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  server: ServerInfo | null;
+  onSubmit: (server: Project) => Promise<void>;
+}
+
+function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState<Partial<Project>>({
+    name: '',
+    title: '',
+    description: '',
+    url: '',
+    author_name: '',
+    tags: '',
+    category: 'file-systems',
+  });
+  
+  const [serverConfig, setServerConfig] = useState<string>('');
+  const [categories, setCategories] = useState<{name: string, title: string}[]>([]);
+
+  // 카테고리 목록 로드
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const response = await fetch('/api/categories');
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data.categories || []);
+        } else {
+          console.error('카테고리 로드 실패');
+        }
+      } catch (error) {
+        console.error('카테고리 로드 오류:', error);
+      }
+    }
+    
+    loadCategories();
+  }, []);
+
+  // 서버 정보가 변경될 때 폼 데이터 초기화
+  useEffect(() => {
+    if (server) {
+      // 설명에서 JSON 구성 추출
+      let description = server.description || '';
+      let config = '';
+      
+      const jsonMatch = description.match(/```json\n([\s\S]*?)\n```/);
+      if (jsonMatch && jsonMatch[1]) {
+        config = jsonMatch[1];
+        description = description.replace(/```json\n[\s\S]*?\n```/, '').trim();
+      }
+      
+      console.log('서버 정보:', server);
+      
+      setFormData({
+        // 중요: uuid에 id 값을 그대로 유지
+        uuid: server.id,
+        id: server.id, // id 필드도 추가
+        name: server.name || '',
+        title: server.title || '',
+        description: description,
+        url: server.url || '',
+        author_name: server.author_name || '',
+        tags: server.tags || '',
+        category: server.category || 'file-systems',
+      });
+      
+      setServerConfig(config);
+    }
+  }, [server]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleConfigChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setServerConfig(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      // JSON 형식 검증
+      try {
+        JSON.parse(serverConfig);
+      } catch (error) {
+        toast.error('서버 구성 JSON 형식이 올바르지 않습니다.');
+        setIsLoading(false);
+        return;
+      }
+      
+      // 설명에 JSON 구성 추가
+      const fullDescription = `${formData.description || ''}\n\n\`\`\`json\n${serverConfig}\n\`\`\``;
+      
+      // 필요한 필드 추가
+      const projectData: Project = {
+        ...formData,
+        description: fullDescription,
+        status: 'created',
+      } as Project;
+      
+      await onSubmit(projectData);
+      onClose();
+    } catch (error) {
+      console.error('수정 중 오류 발생:', error);
+      toast.error('서버 수정 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black/25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900"
+                >
+                  MCP 서버 수정
+                </Dialog.Title>
+                
+                <form onSubmit={handleSubmit} className="mt-4">
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      서버 이름 (고유값) *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      placeholder="mcp-server-name"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">영문, 숫자, 하이픈만 사용 가능합니다.</p>
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      서버 제목 *
+                    </label>
+                    <input
+                      type="text"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      placeholder="MCP 파일 검색 서버"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      설명 *
+                    </label>
+                    <textarea
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      required
+                      rows={3}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      placeholder="MCP 서버에 대한 간단한 설명을 입력하세요."
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      서버 구성 (Cursor SSE 형식) *
+                    </label>
+                    <div className="bg-gray-100 p-2 rounded-t-md border-t border-l border-r border-gray-300">
+                      <code className="text-xs text-gray-700">JSON 형식으로 서버 구성을 입력하세요</code>
+                    </div>
+                    <textarea
+                      value={serverConfig}
+                      onChange={handleConfigChange}
+                      required
+                      rows={8}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-b-md font-mono text-sm"
+                      placeholder='{"server-name": {"url": "http://localhost:3000/sse", "env": {"API_KEY": "value"}}}'
+                    />
+                    <p className="text-xs text-gray-500 mt-1">유효한 JSON 형식이어야 합니다. 이 정보는 서버 연결에 필수적입니다.</p>
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      저장소 URL *
+                    </label>
+                    <input
+                      type="url"
+                      name="url"
+                      value={formData.url}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      placeholder="https://github.com/username/repo"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      작성자 이름
+                    </label>
+                    <input
+                      type="text"
+                      name="author_name"
+                      value={formData.author_name}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      placeholder="작성자 이름"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      태그 (쉼표로 구분)
+                    </label>
+                    <input
+                      type="text"
+                      name="tags"
+                      value={formData.tags}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      placeholder="태그1, 태그2, 태그3"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">쉼표로 구분하여 여러 태그를 입력할 수 있습니다.</p>
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      카테고리
+                    </label>
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    >
+                      {categories.length > 0 ? (
+                        categories.map((category) => (
+                          <option key={category.name} value={category.name}>
+                            {category.title}
+                          </option>
+                        ))
+                      ) : (
+                        <>
+                          <option value="file-systems">파일 시스템</option>
+                          <option value="search">검색</option>
+                          <option value="content-generation">콘텐츠 생성</option>
+                          <option value="code-analysis">코드 분석</option>
+                          <option value="data-processing">데이터 처리</option>
+                          <option value="other">기타</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
+
+                  <div className="flex justify-end space-x-2 mt-6">
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md"
+                    >
+                      취소
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="px-4 py-2 bg-blue-600 text-white rounded-md flex items-center"
+                    >
+                      {isLoading ? (
+                        <>
+                          <FaSpinner className="animate-spin mr-2" /> 처리 중...
+                        </>
+                      ) : (
+                        "저장"
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
 }
 
 export default function ServerManageModal({
@@ -49,6 +380,10 @@ export default function ServerManageModal({
   const [servers, setServers] = useState<ServerInfo[]>([]);
   const [selectedServers, setSelectedServers] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  // 서버 수정 관련 상태 추가
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedServer, setSelectedServer] = useState<ServerInfo | null>(null);
 
   // 서버 목록 로드
   const loadServers = async () => {
@@ -105,6 +440,59 @@ export default function ServerManageModal({
     }
   };
 
+  // 서버 수정을 위해 항목 선택
+  const handleServerEdit = (server: ServerInfo) => {
+    setSelectedServer(server);
+    setEditModalOpen(true);
+  };
+
+  // 서버 수정 폼 제출 처리
+  const handleEditSubmit = async (projectData: Project) => {
+    try {
+      console.log('수정할 프로젝트 데이터:', projectData);
+      
+      // id 필드와 uuid 필드가 동일한지 확인
+      if (projectData.id && projectData.uuid && projectData.id !== projectData.uuid) {
+        console.warn('id와 uuid가 다릅니다. id를 사용합니다.');
+        projectData.uuid = projectData.id;
+      }
+      
+      const response = await fetch('/api/servers/update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(projectData),
+      });
+      
+      // 응답이 JSON이 아닌 경우 텍스트로 처리
+      if (!response.headers.get('content-type')?.includes('application/json')) {
+        const text = await response.text();
+        console.error('서버 응답이 JSON이 아닙니다:', text);
+        throw new Error('서버에서 잘못된 응답 형식을 반환했습니다.');
+      }
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || '서버 수정에 실패했습니다.');
+      }
+      
+      const result = await response.json();
+      console.log('수정 결과:', result);
+      toast.success('서버가 성공적으로 수정되었습니다.');
+      
+      // 서버 목록 새로고침
+      loadServers();
+    } catch (error: any) {
+      console.error("서버 수정 오류:", error);
+      toast.error(error.message || "서버 수정 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 서버 수정 모달 닫기
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+    setSelectedServer(null);
+  };
+  
   // 모든 서버 정보 다운로드
   const downloadAllServers = async () => {
     try {
@@ -274,220 +662,234 @@ export default function ServerManageModal({
   };
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-black/25" />
-        </Transition.Child>
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={onClose}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  서버 일괄 관리
-                </Dialog.Title>
-                
-                <div className="mt-4">
-                  <p className="text-sm text-gray-500 mb-6">
-                    시스템에 등록된 서버를 관리하고, JSON 형식으로 다운로드하거나,
-                    JSON 파일을 업로드하여 여러 서버를 한 번에 등록할 수 있습니다.
-                  </p>
-
-                  <div className="flex flex-col gap-4 mb-6">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                      onClick={downloadAllServers}
-                      disabled={isDownloading}
-                    >
-                      {isDownloading ? (
-                        <>
-                          <FaSpinner className="animate-spin mr-2" />
-                          다운로드 중...
-                        </>
-                      ) : (
-                        <>
-                          <FaDownload className="mr-2" />
-                          모든 서버 정보 다운로드
-                        </>
-                      )}
-                    </button>
-
-                    <button
-                      type="button"
-                      className="inline-flex justify-center items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                      onClick={handleFileSelect}
-                      disabled={isUploading}
-                    >
-                      {isUploading ? (
-                        <>
-                          <FaSpinner className="animate-spin mr-2" />
-                          업로드 중...
-                        </>
-                      ) : (
-                        <>
-                          <FaUpload className="mr-2" />
-                          JSON 파일로 서버 등록
-                        </>
-                      )}
-                    </button>
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      className="hidden"
-                      accept=".json"
-                      onChange={handleFileUpload}
-                    />
-                  </div>
-
-                  {/* 서버 목록 */}
-                  <div className="border rounded-md overflow-hidden">
-                    <div className="bg-gray-50 p-3 border-b flex items-center">
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                          checked={servers.length > 0 && selectedServers.length === servers.length}
-                          onChange={handleSelectAllChange}
-                          id="select-all"
-                        />
-                        <label htmlFor="select-all" className="ml-2 text-sm font-medium text-gray-700">
-                          전체 선택
-                        </label>
-                      </div>
-                      <div className="ml-auto">
-                        <button
-                          type="button"
-                          className="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 px-3 py-1 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                          onClick={showDeleteConfirmDialog}
-                          disabled={isDeleting || showDeleteConfirm || selectedServers.length === 0}
-                        >
-                          <FaTrash className="mr-1" />
-                          선택 삭제
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className="max-h-60 overflow-y-auto">
-                      {isLoading ? (
-                        <div className="flex justify-center items-center p-8">
-                          <FaSpinner className="animate-spin text-blue-500 mr-2" />
-                          <span>서버 목록 로딩 중...</span>
-                        </div>
-                      ) : servers.length === 0 ? (
-                        <div className="p-4 text-center text-gray-500">
-                          등록된 서버가 없습니다.
-                        </div>
-                      ) : (
-                        <ul className="divide-y divide-gray-200">
-                          {servers.map((server) => (
-                            <li key={server.id} className="p-3 hover:bg-gray-50">
-                              <div className="flex items-center">
-                                <input
-                                  type="checkbox"
-                                  id={`server-${server.id}`}
-                                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                  checked={selectedServers.includes(server.id)}
-                                  onChange={() => handleCheckboxChange(server.id)}
-                                />
-                                <label
-                                  htmlFor={`server-${server.id}`}
-                                  className="ml-3 block cursor-pointer"
-                                >
-                                  <div className="font-medium text-gray-900">
-                                    {server.title}
-                                  </div>
-                                  <div className="text-xs text-gray-500 mt-1">
-                                    {server.created_at.split('T')[0]} 등록
-                                  </div>
-                                </label>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* 삭제 확인 대화상자 */}
-                  {showDeleteConfirm && (
-                    <div className="mt-4 p-4 border border-red-300 rounded-md bg-red-50">
-                      <h4 className="text-red-700 font-medium mb-2 flex items-center">
-                        <FaLock className="mr-2" /> 서버 삭제 확인
-                      </h4>
-                      <p className="text-sm text-red-600 mb-3">
-                        선택한 {selectedServers.length}개의 서버가 영구적으로 삭제됩니다. 계속하시려면 관리자 비밀번호를 입력하세요.
-                      </p>
-                      <div className="mb-3">
-                        <input
-                          type="password"
-                          value={deletePassword}
-                          onChange={(e) => setDeletePassword(e.target.value)}
-                          placeholder="관리자 비밀번호"
-                          className="w-full p-2 border border-red-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-                        />
-                      </div>
-                      <div className="flex justify-end space-x-2">
-                        <button
-                          type="button"
-                          onClick={cancelDelete}
-                          className="px-3 py-1 bg-gray-200 text-gray-800 rounded-md"
-                        >
-                          취소
-                        </button>
-                        <button
-                          type="button"
-                          onClick={confirmDelete}
-                          disabled={isDeleting}
-                          className="px-3 py-1 bg-red-600 text-white rounded-md flex items-center"
-                        >
-                          {isDeleting ? (
-                            <>
-                              <FaSpinner className="animate-spin mr-1" /> 처리 중...
-                            </>
-                          ) : (
-                            "삭제 확인"
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-6">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
-                    onClick={onClose}
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    닫기
-                  </button>
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
+                    서버 일괄 관리
+                  </Dialog.Title>
+                  
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-500 mb-6">
+                      시스템에 등록된 서버를 관리하고, JSON 형식으로 다운로드하거나,
+                      JSON 파일을 업로드하여 여러 서버를 한 번에 등록할 수 있습니다.
+                    </p>
+
+                    <div className="flex flex-col gap-4 mb-6">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={downloadAllServers}
+                        disabled={isDownloading}
+                      >
+                        {isDownloading ? (
+                          <>
+                            <FaSpinner className="animate-spin mr-2" />
+                            다운로드 중...
+                          </>
+                        ) : (
+                          <>
+                            <FaDownload className="mr-2" />
+                            모든 서버 정보 다운로드
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        type="button"
+                        className="inline-flex justify-center items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={handleFileSelect}
+                        disabled={isUploading}
+                      >
+                        {isUploading ? (
+                          <>
+                            <FaSpinner className="animate-spin mr-2" />
+                            업로드 중...
+                          </>
+                        ) : (
+                          <>
+                            <FaUpload className="mr-2" />
+                            JSON 파일로 서버 등록
+                          </>
+                        )}
+                      </button>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        className="hidden"
+                        accept=".json"
+                        onChange={handleFileUpload}
+                      />
+                    </div>
+
+                    {/* 서버 목록 */}
+                    <div className="border rounded-md overflow-hidden">
+                      <div className="bg-gray-50 p-3 border-b flex items-center">
+                        <div className="flex items-center">
+                          <input
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            checked={servers.length > 0 && selectedServers.length === servers.length}
+                            onChange={handleSelectAllChange}
+                            id="select-all"
+                          />
+                          <label htmlFor="select-all" className="ml-2 text-sm font-medium text-gray-700">
+                            전체 선택
+                          </label>
+                        </div>
+                        <div className="ml-auto">
+                          <button
+                            type="button"
+                            className="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 px-3 py-1 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            onClick={showDeleteConfirmDialog}
+                            disabled={isDeleting || showDeleteConfirm || selectedServers.length === 0}
+                          >
+                            <FaTrash className="mr-1" />
+                            선택 삭제
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div className="max-h-60 overflow-y-auto">
+                        {isLoading ? (
+                          <div className="flex justify-center items-center p-8">
+                            <FaSpinner className="animate-spin text-blue-500 mr-2" />
+                            <span>서버 목록 로딩 중...</span>
+                          </div>
+                        ) : servers.length === 0 ? (
+                          <div className="p-4 text-center text-gray-500">
+                            등록된 서버가 없습니다.
+                          </div>
+                        ) : (
+                          <ul className="divide-y divide-gray-200">
+                            {servers.map((server) => (
+                              <li key={server.id} className="p-3 hover:bg-gray-50">
+                                <div className="flex items-center">
+                                  <input
+                                    type="checkbox"
+                                    id={`server-${server.id}`}
+                                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                    checked={selectedServers.includes(server.id)}
+                                    onChange={() => handleCheckboxChange(server.id)}
+                                    onClick={(e) => e.stopPropagation()}
+                                  />
+                                  <div 
+                                    className="ml-3 flex-grow cursor-pointer flex justify-between items-center"
+                                    onClick={() => handleServerEdit(server)}
+                                  >
+                                    <div>
+                                      <div className="font-medium text-gray-900">
+                                        {server.title}
+                                      </div>
+                                      <div className="text-xs text-gray-500 mt-1">
+                                        {server.created_at.split('T')[0]} 등록
+                                      </div>
+                                    </div>
+                                    <FaEdit className="text-blue-500" />
+                                  </div>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* 삭제 확인 대화상자 */}
+                    {showDeleteConfirm && (
+                      <div className="mt-4 p-4 border border-red-300 rounded-md bg-red-50">
+                        <h4 className="text-red-700 font-medium mb-2 flex items-center">
+                          <FaLock className="mr-2" /> 서버 삭제 확인
+                        </h4>
+                        <p className="text-sm text-red-600 mb-3">
+                          선택한 {selectedServers.length}개의 서버가 영구적으로 삭제됩니다. 계속하시려면 관리자 비밀번호를 입력하세요.
+                        </p>
+                        <div className="mb-3">
+                          <input
+                            type="password"
+                            value={deletePassword}
+                            onChange={(e) => setDeletePassword(e.target.value)}
+                            placeholder="관리자 비밀번호"
+                            className="w-full p-2 border border-red-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                          />
+                        </div>
+                        <div className="flex justify-end space-x-2">
+                          <button
+                            type="button"
+                            onClick={cancelDelete}
+                            className="px-3 py-1 bg-gray-200 text-gray-800 rounded-md"
+                          >
+                            취소
+                          </button>
+                          <button
+                            type="button"
+                            onClick={confirmDelete}
+                            disabled={isDeleting}
+                            className="px-3 py-1 bg-red-600 text-white rounded-md flex items-center"
+                          >
+                            {isDeleting ? (
+                              <>
+                                <FaSpinner className="animate-spin mr-1" /> 처리 중...
+                              </>
+                            ) : (
+                              "삭제 확인"
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-6">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
+                      onClick={onClose}
+                    >
+                      닫기
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
           </div>
-        </div>
-      </Dialog>
-    </Transition>
+        </Dialog>
+      </Transition>
+
+      {/* 서버 수정 모달 */}
+      <EditServerModal
+        isOpen={editModalOpen}
+        onClose={closeEditModal}
+        server={selectedServer}
+        onSubmit={handleEditSubmit}
+      />
+    </>
   );
 } 

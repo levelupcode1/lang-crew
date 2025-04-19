@@ -29,25 +29,26 @@ export async function GET() {
     // Supabase 클라이언트 생성
     const supabase = createClient(supabaseUrl, supabaseKey);
     
-    // 모든 프로젝트 데이터 가져오기 (수정 시 필요한 모든 필드 포함)
-    const { data: projects, error: projectsError } = await supabase
-      .from("projects")
-      .select("id, name, title, description, url, author_name, tags, category, created_at, updated_at")
+    // 카테고리 테이블에서 데이터 가져오기
+    const { data: categories, error: categoriesError } = await supabase
+      .from("categories")
+      .select("*")
+      .eq("status", "created")
       .order("created_at", { ascending: false });
     
-    if (projectsError) {
-      console.error("프로젝트 데이터 가져오기 오류:", projectsError);
+    if (categoriesError) {
+      console.error("카테고리 데이터 가져오기 오류:", categoriesError);
       return NextResponse.json(
-        { error: "프로젝트 데이터를 가져오는데 실패했습니다." },
+        { error: "카테고리 데이터를 가져오는데 실패했습니다." },
         { status: 500 }
       );
     }
     
-    return NextResponse.json({ projects }, { status: 200 });
+    return NextResponse.json({ categories }, { status: 200 });
   } catch (error) {
-    console.error("서버 목록 가져오기 오류:", error);
+    console.error("카테고리 목록 가져오기 오류:", error);
     return NextResponse.json(
-      { error: "서버 목록을 가져오는데 실패했습니다." },
+      { error: "카테고리 목록을 가져오는데 실패했습니다." },
       { status: 500 }
     );
   }

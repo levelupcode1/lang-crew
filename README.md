@@ -67,3 +67,11 @@ git add .
 git commit -m "프로젝트 최초 커밋"
 git branch -M main
 git push -u origin main
+
+echo "# lang-crew" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/studywithme/lang-crew.git
+git push -u origin main

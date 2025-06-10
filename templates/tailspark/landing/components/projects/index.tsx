@@ -24,7 +24,7 @@ export default ({
             })}
           </div>
         ) : (
-          <div className="mx-auto text-center">Loading data...</div>
+          <div className="mx-auto text-center">데이터를 불러오는 중...</div>
         )}
       </div>
     </section>

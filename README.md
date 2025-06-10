@@ -1,63 +1,69 @@
-## MCP Directory
+## LangCrew
 
-a directory for Awesome MCP Servers.
+한국 사용자를 위한 MCP 크루 서비스입니다.
 
-live preview: [https://mcp.so](https://mcp.so)
+라이브 미리보기: [https://langcrew.kr](https://langcrew.kr)
 
-![preview](./preview.png)
+![미리보기](./preview.png)
 
-## Quick Start
+## 빠른 시작
 
-1. clone the repo
+1. 저장소 클론
 
 ```bash
-git clone https://github.com/chatmcp/mcp-directory.git
-cd mcp-directory
+git clone <이 저장소 주소>
+cd lang-crew
 ```
 
-2. install dependencies
+2. 의존성 설치
 
 ```bash
 pnpm install
 ```
 
-3. prepare database
+3. 데이터베이스 준비
 
-create a database with [Supabase](https://supabase.com/)
+[Supabase](https://supabase.com/)에서 데이터베이스를 생성하세요.
 
-run the sql file in `data/install.sql`
+`data/install.sql` 파일의 SQL을 실행하세요.
 
-4. set env variables
+4. 환경 변수 설정
 
-put a .env file in the root directory
-
-with env variables:
+루트 디렉토리에 .env 파일을 생성하고 아래와 같이 입력하세요:
 
 ```env
 SUPABASE_URL=""
 SUPABASE_ANON_KEY=""
 
-NEXT_PUBLIC_WEB_URL="http://localhost:3000"
+NEXT_PUBLIC_WEB_URL="https://langcrew.kr"
 ```
 
-5. run the dev server
+5. 개발 서버 실행
 
 ```bash
 pnpm dev
 ```
 
-6. preview the site
+6. 사이트 미리보기
 
-open [http://localhost:3000](http://localhost:3000) in your browser
+브라우저에서 [http://localhost:3000](http://localhost:3000) 또는 [https://langcrew.kr](https://langcrew.kr)로 접속하세요.
 
-## Community
+## 커뮤니티
 
-- [MCP Server Telegram](https://t.me/+N0gv4O9SXio2YWU1)
-- [MCP Server Discord](https://discord.gg/RsYPRrnyqg)
-- [ChatMCP Official Twitter](https://x.com/chatmcp)
+- [LangCrew 공식 텔레그램](https://t.me/+N0gv4O9SXio2YWU1)
+- [LangCrew 공식 디스코드](https://discord.gg/RsYPRrnyqg)
 
-## About the author
+## 제작자
 
 - [idoubi](https://bento.me/idoubi)
-- [Follow me on Twitter](https://x.com/idoubicv)
-- [Buy me a coffee](https://www.buymeacoffee.com/idoubi)
+- [트위터 팔로우](https://x.com/idoubicv)
+- [커피 후원하기](https://www.buymeacoffee.com/idoubi)
+
+git init
+
+git remote add origin https://github.com/studywithme/lang-crew.git
+
+git add .
+git commit -m "프로젝트 최초 커밋"
+git branch -M main
+git push -u origin main

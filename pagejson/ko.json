@@ -1,0 +1,165 @@
+{
+  "metadata": {
+    "title": "LangCrew",
+    "description": "한국 최대의 MCP 크루(서버) 모음집. 다양한 MCP 크루를 검색하고 발견하여 AI 활용 능력을 높이세요.",
+    "keywords": "LangCrew, 언어 크루, AI, 한국, 언어 서버"
+  },
+  "header": {
+    "brand": {
+      "title": "LangCrew",
+      "url": "/",
+      "avatar": {
+        "src": "/logo.png"
+      }
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "카테고리",
+          "url": "/categories",
+          "target": "_self"
+        },
+        {
+          "title": "등록하기",
+          "url": "https://github.com/langcrew/lang-crew/issues/1",
+          "target": "_blank"
+        },
+        {
+          "title": "텔레그램",
+          "url": "https://t.me/+N0gv4O9SXio2YWU1",
+          "target": "_blank"
+        },
+        {
+          "title": "디스코드",
+          "url": "https://discord.gg/RsYPRrnyqg",
+          "target": "_blank"
+        }
+      ]
+    }
+  },
+  "hero": {
+    "title": "최고의 MCP 크루를 찾아보세요",
+    "description": "개의 MCP 크루가 등록되어 있습니다."
+  },
+  "faq": {
+    "title": "자주 묻는 질문",
+    "description": "LangCrew와 MCP 크루에 대한 자주 묻는 질문",
+    "items": [
+      {
+        "title": "LangCrew란 무엇인가요?",
+        "description": "LangCrew는 다양한 MCP 크루(서버)를 한 곳에 모아 소개하는 플랫폼입니다. AI, 언어 학습, 커뮤니티 등 다양한 목적의 크루를 쉽게 찾고 참여할 수 있습니다."
+      },
+      {
+        "title": "MCP 크루(서버)란?",
+        "description": "MCP 크루(서버)는 언어 학습, AI 활용, 커뮤니티 활동 등을 위해 만들어진 온라인 모임 공간입니다. 다양한 주제와 목적의 크루가 존재합니다."
+      },
+      {
+        "title": "크루는 어떻게 등록하나요?",
+        "description": "상단 메뉴의 '등록하기' 버튼을 클릭하거나 GitHub 이슈를 통해 직접 크루 정보를 등록할 수 있습니다."
+      },
+      {
+        "title": "LangCrew는 무료인가요?",
+        "description": "네, LangCrew는 누구나 무료로 이용할 수 있습니다."
+      },
+      {
+        "title": "운영진에게 문의하려면?",
+        "description": "푸터의 이메일 또는 텔레그램, 디스코드 채널을 통해 문의하실 수 있습니다."
+      }
+    ]
+  },
+  "footer": {
+    "brand": {
+      "title": "LangCrew",
+      "description": "한국 최대의 MCP 크루(서버) 모음집, 다양한 AI/언어 커뮤니티를 한 곳에서!",
+      "domain": "https://langcrew.kr"
+    },
+    "copyright": {
+      "owner": "langcrew.kr",
+      "text": "All rights reserved",
+      "url": "https://langcrew.kr",
+      "target": "_blank"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "소개",
+          "children": [
+            {
+              "title": "개인정보 처리방침",
+              "url": "/privacy-policy",
+              "target": "_blank"
+            },
+            {
+              "title": "이용약관",
+              "url": "/terms-of-service",
+              "target": "_blank"
+            }
+          ]
+        },
+        {
+          "title": "자료실",
+          "children": [
+            {
+              "title": "LangCrew 소개",
+              "url": "https://langcrew.kr/about",
+              "target": "_blank"
+            },
+            {
+              "title": "AI 활용 가이드",
+              "url": "https://langcrew.kr/guide",
+              "target": "_blank"
+            }
+          ]
+        },
+        {
+          "title": "커뮤니티",
+          "children": [
+            {
+              "title": "텔레그램",
+              "url": "https://t.me/+N0gv4O9SXio2YWU1",
+              "target": "_blank"
+            },
+            {
+              "title": "디스코드",
+              "url": "https://discord.gg/RsYPRrnyqg",
+              "target": "_blank"
+            },
+            {
+              "title": "GitHub",
+              "url": "https://github.com/langcrew/lang-crew/issues/1",
+              "target": "_blank"
+            }
+          ]
+        },
+        {
+          "title": "추천 서비스",
+          "children": [
+            {
+              "title": "ThinkAny",
+              "url": "https://thinkany.ai",
+              "target": "_blank"
+            },
+            {
+              "title": "HeyBeauty",
+              "url": "https://heybeauty.ai",
+              "target": "_blank"
+            },
+            {
+              "title": "PodLM",
+              "url": "https://podlm.ai",
+              "target": "_blank"
+            }
+          ]
+        }
+      ]
+    },
+    "social": {
+      "items": {
+        "email": {
+          "title": "support@langcrew.kr",
+          "url": "mailto:support@langcrew.kr"
+        }
+      }
+    }
+  }
+} 

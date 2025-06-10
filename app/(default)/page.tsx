@@ -6,7 +6,7 @@ import {
 
 import LandingPage from "@/templates/tailspark/landing/pages/index";
 import { Project } from "@/types/project";
-import pagejson from "@/pagejson/en.json";
+import pagejson from "@/pagejson/ko.json";
 
 export const runtime = "edge";
 

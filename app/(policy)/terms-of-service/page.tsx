@@ -16,7 +16,7 @@ export default function () {
 
 ## Introduction and Acceptance of Terms
 
-Welcome to **MCP** (mcp.so), a platform dedicated to providing a marketplace for Model Context Protocol (MCP) servers. Our service enables developers and organizations to discover, share, and manage MCP servers that connect AI assistants with various data sources. By accessing or using our service, you agree to be bound by these Terms of Service.
+Welcome to **MCP** (langcrew.kr), a platform dedicated to providing a marketplace for Model Context Protocol (MCP) servers. Our service enables developers and organizations to discover, share, and manage MCP servers that connect AI assistants with various data sources. By accessing or using our service, you agree to be bound by these Terms of Service.
 
 ## Use of the Service
 
@@ -68,7 +68,7 @@ For complete details, see our [Privacy Policy](/privacy-policy).
 ## Service Availability and Support
 
 - The service is provided "as is" and "as available"
-- Support is available via support@mcp.so
+- Support is available via support@langcrew.kr
 - We maintain a public status page for service availability
 - We may modify or discontinue features with notice
 
@@ -108,7 +108,7 @@ These terms shall be governed by and construed in accordance with the laws of th
 
 ## Contact Information
 
-For questions about these terms, please contact us at [support@mcp.so](mailto:support@mcp.so).
+For questions about these terms, please contact us at [support@langcrew.kr](mailto:support@langcrew.kr).
 
 ---
 

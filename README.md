@@ -18,6 +18,8 @@ cd lang-crew
 2. 의존성 설치
 
 ```bash
+npm install -g pnpm
+
 pnpm install
 ```
 
@@ -62,16 +64,15 @@ pnpm dev
 git init
 
 git remote add origin https://github.com/studywithme/lang-crew.git
-
 git add .
 git commit -m "프로젝트 최초 커밋"
 git branch -M main
 git push -u origin main
 
-echo "# lang-crew" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/studywithme/lang-crew.git
-git push -u origin main
+pnpm build
+pnpm start
+
+npm install -g pm2
+pm2 start npm --name "lang-crew" -- start
+pm2 save
+pm2 startup

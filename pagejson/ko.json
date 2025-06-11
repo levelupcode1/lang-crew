@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "LangCrew",
-    "description": "한국 최대의 MCP 크루(서버) 모음집. 다양한 MCP 크루를 검색하고 발견하여 AI 활용 능력을 높이세요.",
+    "description": "한국 최대의 MCP 서버 모음집. 다양한 MCP 크루를 검색하고 발견하여 AI 활용 능력을 높이세요.",
     "keywords": "LangCrew, 언어 크루, AI, 한국, 언어 서버"
   },
   "header": {
@@ -20,11 +20,6 @@
           "target": "_self"
         },
         {
-          "title": "등록하기",
-          "url": "https://github.com/langcrew/lang-crew/issues/1",
-          "target": "_blank"
-        },
-        {
           "title": "텔레그램",
           "url": "https://t.me/+N0gv4O9SXio2YWU1",
           "target": "_blank"
@@ -38,20 +33,20 @@
     }
   },
   "hero": {
-    "title": "최고의 MCP 크루를 찾아보세요",
-    "description": "개의 MCP 크루가 등록되어 있습니다."
+    "title": "보안 검증된 MCP 서버 찾아보세요",
+    "description": "개의 MCP 서버가 등록되어 있습니다."
   },
   "faq": {
     "title": "자주 묻는 질문",
-    "description": "LangCrew와 MCP 크루에 대한 자주 묻는 질문",
+    "description": "LangCrew와 MCP 서버에 대한 자주 묻는 질문",
     "items": [
       {
         "title": "LangCrew란 무엇인가요?",
-        "description": "LangCrew는 다양한 MCP 크루(서버)를 한 곳에 모아 소개하는 플랫폼입니다. AI, 언어 학습, 커뮤니티 등 다양한 목적의 크루를 쉽게 찾고 참여할 수 있습니다."
+        "description": "LangCrew는 다양한 MCP 서버를 한 곳에 모아 소개하는 플랫폼입니다. AI, 언어 학습, 커뮤니티 등 다양한 목적의 크루를 쉽게 찾고 참여할 수 있습니다."
       },
       {
-        "title": "MCP 크루(서버)란?",
-        "description": "MCP 크루(서버)는 언어 학습, AI 활용, 커뮤니티 활동 등을 위해 만들어진 온라인 모임 공간입니다. 다양한 주제와 목적의 크루가 존재합니다."
+        "title": "MCP 서버란?",
+        "description": "MCP 서버는 언어 학습, AI 활용, 커뮤니티 활동 등을 위해 만들어진 온라인 모임 공간입니다. 다양한 주제와 목적의 크루가 존재합니다."
       },
       {
         "title": "크루는 어떻게 등록하나요?",
@@ -70,7 +65,7 @@
   "footer": {
     "brand": {
       "title": "LangCrew",
-      "description": "한국 최대의 MCP 크루(서버) 모음집, 다양한 AI/언어 커뮤니티를 한 곳에서!",
+      "description": "한국 최대의 MCP 서버 모음집, 다양한 AI/언어 커뮤니티를 한 곳에서!",
       "domain": "https://langcrew.kr"
     },
     "copyright": {

@@ -1,0 +1,7 @@
+uuid,name,title,description,url,category,status,created_at
+95bea4b5-5fae-480f-9e6a-b4fd44456fee,modelcontextprotocol-server-google-maps,@modelcontextprotocol/server-google-maps,"위치 서비스, 경로 안내 및 장소 세부 정보를 위한 Google 지도 통합",https://github.com/modelcontextprotocol/servers/tree/main/src/google-maps,location_services,active,NOW()
+238ca3e0-c34a-4687-9b32-96e9e8fe91a9,SecretiveShell-MCP-timeserver,SecretiveShell/MCP-timeserver,모든 시간대의 시간에 접근하고 현재 현지 시간 확인,https://github.com/SecretiveShell/MCP-timeserver,location_services,active,NOW()
+1da00704-b407-485b-ba35-e044f4a885f3,webcoderz-MCP-Geo,webcoderz/MCP-Geo,"nominatim, ArcGIS, Bing을 위한 지오코딩 MCP 서버",https://github.com/webcoderz/MCP-Geo,location_services,active,NOW()
+df977b66-5164-41ef-aa05-132e8f006330,briandconnelly-mcp-server-ipinfo,@briandconnelly/mcp-server-ipinfo,IPInfo API를 사용한 IP 주소 지리 위치 및 네트워크 정보,https://github.com/briandconnelly/mcp-server-ipinfo,location_services,active,NOW()
+b48ceb2c-f236-47a1-bed5-60a81a3084b2,QGIS MCP,QGIS MCP,"QGIS 데스크톱을 MCP를 통해 Claude AI에 연결합니다. 이 통합은 프롬프트 지원 프로젝트 생성, 레이어 로딩, 코드 실행 등을 가능하게 합니다.",https://github.com/jjsantos01/qgis_mcp,location_services,active,NOW()
+b3e32740-09f9-4b48-8b8c-7cfebb5eafb3,kukapay-nearby-search-mcp,kukapay/nearby-search-mcp,IP 기반 위치 감지를 통한 주변 장소 검색을 위한 MCP 서버.,https://github.com/kukapay/nearby-search-mcp,location_services,active,NOW()

@@ -1,0 +1,5 @@
+uuid,name,title,description,url,category,status,created_at
+b7d471ca-54fb-4036-b652-8ba6ac8ca87c,ferrislucas-iterm-mcp,ferrislucas/iterm-mcp,iTerm에 대한 접근을 제공하는 모델 컨텍스트 프로토콜 서버. 명령을 실행하고 iTerm 터미널에서 보이는 내용에 대해 질문할 수 있습니다.,https://github.com/ferrislucas/iterm-mcp,command_line,active,NOW()
+2252fa21-3a18-4139-8486-4ef2bf75301d,g0t4-mcp-server-commands,g0t4/mcp-server-commands,`run_command` 및 `run_script` 도구를 사용하여 모든 명령 실행.,https://github.com/g0t4/mcp-server-commands,command_line,active,NOW()
+0251135f-6367-44b1-b691-2f9f413a7c68,MladenSU-cli-mcp-server,MladenSU/cli-mcp-server,안전한 실행 및 사용자 정의 가능한 보안 정책을 갖춘 커맨드 라인 인터페이스,https://github.com/MladenSU/cli-mcp-server,command_line,active,NOW()
+53224ba1-5e41-4a0b-a67a-b25eb31eef89,tumf-mcp-shell-server,tumf/mcp-shell-server,모델 컨텍스트 프로토콜(MCP)을 구현하는 안전한 셸 명령 실행 서버,https://github.com/tumf/mcp-shell-server,command_line,active,NOW()

@@ -45,12 +45,9 @@ export default ({ header }: { header: Header }) => {
             className="flex items-center bg-cover bg-center py-3 px-2 md:py-4 m text-primary cursor-pointer font-bold"
             href={header?.brand?.url}
           >
-            <img
-              src={header?.brand?.avatar?.src}
-              alt={header?.brand?.avatar?.title || header?.brand?.title}
-              className="w-10 h-10 rounded-full border-2 border-slate-300 shadow-lg mr-2"
-            />
-            {header?.brand?.title}
+           <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+              LangCrew
+            </span>
           </a>
         </p>
 

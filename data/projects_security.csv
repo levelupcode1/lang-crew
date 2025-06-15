@@ -1,0 +1,11 @@
+uuid,name,title,description,url,category,status,created_at
+ae1bc27a-bc5f-4766-a2a7-2d1406057f42,firstorderai-authenticator_mcp,firstorderai/authenticator_mcp,– AI 에이전트가 인증 앱과 상호 작용할 수 있도록 하는 보안 MCP(Model Context Protocol) 서버입니다.,https://github.com/firstorderai/authenticator_mcp,security,active,NOW()
+7018c727-9de1-4d1f-95ea-9a34e849f280,dnstwist MCP 서버,dnstwist MCP 서버,"타이포스쿼팅, 피싱 및 기업 스파이 활동 탐지를 돕는 강력한 DNS 퍼징 도구인 dnstwist용 MCP 서버.",https://github.com/BurtTheCoder/mcp-dnstwist,security,active,NOW()
+63242ae0-2aae-445d-8760-7f416f15adb4,fosdickio-binary_ninja_mcp,fosdickio/binary_ninja_mcp,Binary Ninja를 위한 MCP 서버 및 브릿지. 바이너리 분석 및 리버스 엔지니어링을 위한 도구를 제공합니다.,https://github.com/Vector35/binaryninja-mcp,security,active,NOW()
+dd4b3499-88c3-4276-a5b1-b32badf68dbe,Maigret MCP 서버,Maigret MCP 서버,다양한 공개 소스에서 사용자 계정 정보를 수집하는 강력한 OSINT 도구인 maigret용 MCP 서버. 이 서버는 소셜 네트워크에서 사용자 이름 검색 및 URL 분석 도구를 제공합니다.,https://github.com/BurtTheCoder/mcp-maigret,security,active,NOW()
+75e006a5-d4ec-4b0e-9b4d-a5e409ac7659,Shodan MCP 서버,Shodan MCP 서버,"Shodan API 및 Shodan CVEDB 쿼리를 위한 MCP 서버. 이 서버는 IP 조회, 장치 검색, DNS 조회, 취약점 쿼리, CPE 조회 등을 위한 도구를 제공합니다.",https://github.com/BurtTheCoder/mcp-shodan,security,active,NOW()
+b05722ff-cd57-48e6-bb63-16df6d25c293,VirusTotal MCP 서버,VirusTotal MCP 서버,"VirusTotal API 쿼리를 위한 MCP 서버. 이 서버는 URL 스캔, 파일 해시 분석 및 IP 주소 보고서 검색 도구를 제공합니다.",https://github.com/BurtTheCoder/mcp-virustotal,security,active,NOW()
+a0c07918-e187-4faa-9e25-d41cdc203125,ORKL MCP 서버,ORKL MCP 서버,"ORKL API 쿼리를 위한 MCP 서버. 이 서버는 위협 보고서 가져오기, 위협 행위자 분석 및 인텔리전스 소스 검색 도구를 제공합니다.",https://github.com/fr0gger/MCP_Security,security,active,NOW()
+658814ea-a9d7-47d8-aa59-112119f8b5fb,Security Audit MCP 서버,Security Audit MCP 서버,보안 취약점에 대해 npm 패키지 의존성을 감사하는 강력한 MCP(모델 컨텍스트 프로토콜) 서버. 실시간 보안 검사를 위한 원격 npm 레지스트리 통합으로 구축됨.,https://github.com/qianniuspace/mcp-security-audit,security,active,NOW()
+783fbbc4-a8ae-44c2-a923-40513b138b7a,ROADRecon MCP 서버,ROADRecon MCP 서버,Azure 테넌트 열거에서 ROADrecon 수집 결과 분석을 위한 MCP 서버,https://github.com/atomicchonk/roadrecon_mcp_server,security,active,NOW()
+5a79b57e-5f47-4a24-b0bd-3de18e7b12dc,VMS MCP 서버,VMS MCP 서버,"VMS MCP 서버는 CCTV 녹화 프로그램(VMS)에 연결하여 녹화된 영상과 실시간 영상을 가져오며, 특정 채널의 특정 시간에 실시간 영상이나 재생 화면을 표시하는 등의 VMS 소프트웨어 제어 도구도 제공합니다.",https://github.com/jyjune/mcp_vms,security,active,NOW()

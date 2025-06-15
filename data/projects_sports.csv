@@ -1,0 +1,3 @@
+uuid,name,title,description,url,category,status,created_at
+c68058d8-aa22-41ef-96f6-01979c9fa31a,r-huijts-firstcycling-mcp,r-huijts/firstcycling-mcp,"자연어를 통해 사이클링 경주 데이터, 결과 및 통계에 접근합니다. firstcycling.com에서 출발 목록, 경주 결과 및 라이더 정보 검색 기능 포함.",https://github.com/r-huijts/firstcycling-mcp,sports,active,NOW()
+f58579f5-35b5-4da0-b707-9ca5bdaab2ba,willvelida-mcp-afl-server,willvelida/mcp-afl-server,"MCP 서버는 Squiggle API와 통합되어 호주 풋볼 리그 팀, 순위표, 경기 결과, 예측, 그리고 파워 랭킹에 대한 정보를 제공합니다.",https://github.com/willvelida/mcp-afl-server,sports,active,NOW()

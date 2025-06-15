@@ -19,7 +19,7 @@ export async function findCategoryByName(
     .from("categories")
     .select("*")
     .eq("name", name)
-    .eq("status", "created")
+    .eq("status", "active")
     .single();
 
   if (error) return undefined;
@@ -35,7 +35,7 @@ export async function getCategories(
   const { data, error } = await supabase
     .from("categories")
     .select("*")
-    .eq("status", "created")
+    .eq("status", "active")
     .order("created_at", { ascending: false })
     .range((page - 1) * limit, page * limit - 1);
 

@@ -1,0 +1,7 @@
+uuid,name,title,description,url,category,status,created_at
+6507d6f0-3c36-4362-b3e1-ece7d19015ef,modelcontextprotocol-server-github,@modelcontextprotocol/server-github,"리포지토리 관리, PR, 이슈 등을 위한 GitHub API 통합",https://github.com/modelcontextprotocol/servers/tree/main/src/github,version_control,active,NOW()
+64eaffdf-5756-4a2a-a72b-a7aee2a9bcff,modelcontextprotocol-server-gitlab,@modelcontextprotocol/server-gitlab,프로젝트 관리 및 CI/CD 운영을 위한 GitLab 플랫폼 통합,https://github.com/modelcontextprotocol/servers/tree/main/src/gitlab,version_control,active,NOW()
+3bb0a066-5a8a-42be-9446-1a69f64912e5,Tiberriver256-mcp-server-azure-devops,Tiberriver256/mcp-server-azure-devops,"Azure DevOps 통합, 리포지토리, 작업 항목 및 파이프라인 관리용",https://github.com/Tiberriver256/mcp-server-azure-devops,version_control,active,NOW()
+a66e31ff-4ebe-4c55-a8b2-e12462d2ac12,oschina-mcp-gitee,@oschina/mcp-gitee,"Gitee API 통합, 리포지토리, 이슈 및 풀 리퀘스트 관리 등.",https://github.com/oschina/gitee,version_control,active,NOW()
+90ff9fa1-cf2f-41d3-bf02-2e762fbc5f7a,modelcontextprotocol-server-git,@modelcontextprotocol/server-git,"로컬 리포지토리 읽기, 검색 및 분석을 포함한 직접적인 Git 리포지토리 운영",https://github.com/modelcontextprotocol/servers/tree/main/src/git,version_control,active,NOW()
+c70d793c-213b-4515-95a9-53b81b0ff2ad,adhikasp-mcp-git-ingest,adhikasp/mcp-git-ingest,LLM으로 GitHub 리포지토리 읽기 및 분석,https://github.com/adhikasp/mcp-git-ingest,version_control,active,NOW()

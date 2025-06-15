@@ -148,7 +148,7 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
       const projectData: Project = {
         ...formData,
         description: fullDescription,
-        status: 'created',
+        status: 'active',
       } as Project;
       
       await onSubmit(projectData);
@@ -175,7 +175,7 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/25" />
+          <div className="fixed inset-0 bg-black/25 dark:bg-black/60" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -189,17 +189,17 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 p-6 text-left align-middle shadow-xl transition-all border border-gray-200 dark:border-zinc-700">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
+                  className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100"
                 >
                   MCP 서버 수정
                 </Dialog.Title>
                 
                 <form onSubmit={handleSubmit} className="mt-4">
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       서버 이름 (고유값) *
                     </label>
                     <input
@@ -208,14 +208,14 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="mcp-server-name"
                     />
                     <p className="text-xs text-gray-500 mt-1">영문, 숫자, 하이픈만 사용 가능합니다.</p>
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       서버 제목 *
                     </label>
                     <input
@@ -224,13 +224,13 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
                       value={formData.title}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="MCP 파일 검색 서버"
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       설명 *
                     </label>
                     <textarea
@@ -239,13 +239,13 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
                       onChange={handleChange}
                       required
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="MCP 서버에 대한 간단한 설명을 입력하세요."
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       서버 구성 (Cursor SSE 형식) *
                     </label>
                     <div className="bg-gray-100 p-2 rounded-t-md border-t border-l border-r border-gray-300">
@@ -256,14 +256,14 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
                       onChange={handleConfigChange}
                       required
                       rows={8}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-b-md font-mono text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-b-md font-mono text-sm bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100"
                       placeholder='{"server-name": {"url": "http://localhost:3000/sse", "env": {"API_KEY": "value"}}}'
                     />
                     <p className="text-xs text-gray-500 mt-1">유효한 JSON 형식이어야 합니다. 이 정보는 서버 연결에 필수적입니다.</p>
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       저장소 URL *
                     </label>
                     <input
@@ -272,13 +272,13 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
                       value={formData.url}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="https://github.com/username/repo"
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       작성자 이름
                     </label>
                     <input
@@ -286,13 +286,13 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
                       name="author_name"
                       value={formData.author_name}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="작성자 이름"
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       태그 (쉼표로 구분)
                     </label>
                     <input
@@ -300,21 +300,21 @@ function EditServerModal({ isOpen, onClose, server, onSubmit }: EditServerModalP
                       name="tags"
                       value={formData.tags}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="태그1, 태그2, 태그3"
                     />
                     <p className="text-xs text-gray-500 mt-1">쉼표로 구분하여 여러 태그를 입력할 수 있습니다.</p>
                   </div>
 
                   <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       카테고리
                     </label>
                     <select
                       name="category"
                       value={formData.category}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary"
                     >
                       {categories.length > 0 ? (
                         categories.map((category) => (
@@ -674,7 +674,7 @@ export default function ServerManageModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/25" />
+            <div className="fixed inset-0 bg-black/40" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -688,16 +688,16 @@ export default function ServerManageModal({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl card text-left align-middle transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-bold mb-4"
                   >
                     서버 일괄 관리
                   </Dialog.Title>
                   
                   <div className="mt-4">
-                    <p className="text-sm text-gray-500 mb-6">
+                    <p className="text-sm text-muted mb-6">
                       시스템에 등록된 서버를 관리하고, JSON 형식으로 다운로드하거나,
                       JSON 파일을 업로드하여 여러 서버를 한 번에 등록할 수 있습니다.
                     </p>
@@ -705,7 +705,7 @@ export default function ServerManageModal({
                     <div className="flex flex-col gap-4 mb-6">
                       <button
                         type="button"
-                        className="inline-flex justify-center items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="button-primary flex items-center justify-center"
                         onClick={downloadAllServers}
                         disabled={isDownloading}
                       >
@@ -724,7 +724,7 @@ export default function ServerManageModal({
 
                       <button
                         type="button"
-                        className="inline-flex justify-center items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="button-secondary flex items-center justify-center"
                         onClick={handleFileSelect}
                         disabled={isUploading}
                       >
@@ -750,24 +750,22 @@ export default function ServerManageModal({
                     </div>
 
                     {/* 서버 목록 */}
-                    <div className="border rounded-md overflow-hidden">
-                      <div className="bg-gray-50 p-3 border-b flex items-center">
+                    <div className="border rounded-xl overflow-hidden bg-secondary">
+                      <div className="p-3 border-b flex items-center">
                         <div className="flex items-center">
                           <input
                             type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            className="input h-4 w-4 mr-2"
                             checked={servers.length > 0 && selectedServers.length === servers.length}
                             onChange={handleSelectAllChange}
                             id="select-all"
                           />
-                          <label htmlFor="select-all" className="ml-2 text-sm font-medium text-gray-700">
-                            전체 선택
-                          </label>
+                          <label htmlFor="select-all" className="label m-0">전체 선택</label>
                         </div>
                         <div className="ml-auto">
                           <button
                             type="button"
-                            className="inline-flex justify-center items-center rounded-md border border-transparent bg-red-600 px-3 py-1 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="button-secondary flex items-center"
                             onClick={showDeleteConfirmDialog}
                             disabled={isDeleting || showDeleteConfirm || selectedServers.length === 0}
                           >
@@ -776,43 +774,42 @@ export default function ServerManageModal({
                           </button>
                         </div>
                       </div>
-                      
                       <div className="max-h-60 overflow-y-auto">
                         {isLoading ? (
                           <div className="flex justify-center items-center p-8">
-                            <FaSpinner className="animate-spin text-blue-500 mr-2" />
+                            <FaSpinner className="animate-spin text-primary mr-2" />
                             <span>서버 목록 로딩 중...</span>
                           </div>
                         ) : servers.length === 0 ? (
-                          <div className="p-4 text-center text-gray-500">
+                          <div className="p-4 text-center text-muted">
                             등록된 서버가 없습니다.
                           </div>
                         ) : (
-                          <ul className="divide-y divide-gray-200">
+                          <ul className="divide-y divide-border">
                             {servers.map((server) => (
-                              <li key={server.id} className="p-3 hover:bg-gray-50">
+                              <li key={server.id} className="p-3 hover:bg-secondary cursor-pointer rounded-xl transition-all">
                                 <div className="flex items-center">
                                   <input
                                     type="checkbox"
                                     id={`server-${server.id}`}
-                                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                    className="input h-4 w-4 mr-2"
                                     checked={selectedServers.includes(server.id)}
                                     onChange={() => handleCheckboxChange(server.id)}
                                     onClick={(e) => e.stopPropagation()}
                                   />
                                   <div 
-                                    className="ml-3 flex-grow cursor-pointer flex justify-between items-center"
+                                    className="ml-3 flex-grow flex justify-between items-center"
                                     onClick={() => handleServerEdit(server)}
                                   >
                                     <div>
-                                      <div className="font-medium text-gray-900">
+                                      <div className="font-medium text-foreground">
                                         {server.title}
                                       </div>
-                                      <div className="text-xs text-gray-500 mt-1">
+                                      <div className="text-xs text-muted mt-1">
                                         {server.created_at.split('T')[0]} 등록
                                       </div>
                                     </div>
-                                    <FaEdit className="text-blue-500" />
+                                    <FaEdit className="text-primary" />
                                   </div>
                                 </div>
                               </li>
@@ -824,11 +821,11 @@ export default function ServerManageModal({
 
                     {/* 삭제 확인 대화상자 */}
                     {showDeleteConfirm && (
-                      <div className="mt-4 p-4 border border-red-300 rounded-md bg-red-50">
-                        <h4 className="text-red-700 font-medium mb-2 flex items-center">
+                      <div className="mt-4 p-4 border border-accent rounded-xl bg-accent/10">
+                        <h4 className="text-accent font-medium mb-2 flex items-center">
                           <FaLock className="mr-2" /> 서버 삭제 확인
                         </h4>
-                        <p className="text-sm text-red-600 mb-3">
+                        <p className="text-sm text-accent mb-3">
                           선택한 {selectedServers.length}개의 서버가 영구적으로 삭제됩니다. 계속하시려면 관리자 비밀번호를 입력하세요.
                         </p>
                         <div className="mb-3">
@@ -837,14 +834,14 @@ export default function ServerManageModal({
                             value={deletePassword}
                             onChange={(e) => setDeletePassword(e.target.value)}
                             placeholder="관리자 비밀번호"
-                            className="w-full p-2 border border-red-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                            className="input"
                           />
                         </div>
                         <div className="flex justify-end space-x-2">
                           <button
                             type="button"
                             onClick={cancelDelete}
-                            className="px-3 py-1 bg-gray-200 text-gray-800 rounded-md"
+                            className="button-secondary"
                           >
                             취소
                           </button>
@@ -852,7 +849,7 @@ export default function ServerManageModal({
                             type="button"
                             onClick={confirmDelete}
                             disabled={isDeleting}
-                            className="px-3 py-1 bg-red-600 text-white rounded-md flex items-center"
+                            className="button-primary flex items-center"
                           >
                             {isDeleting ? (
                               <>
@@ -870,7 +867,7 @@ export default function ServerManageModal({
                   <div className="mt-6">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
+                      className="button-secondary"
                       onClick={onClose}
                     >
                       닫기

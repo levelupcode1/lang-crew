@@ -16,7 +16,8 @@ export default function ({
 }) {
   return (
     <div>
-      {page.hero && <Hero hero={page.hero} count={projectsCount} />}
+      {/* Hero 영역 주석 처리: 메인 상단 배너 숨김 */}
+      {/* {page.hero && <Hero hero={page.hero} count={projectsCount} />} */}
       <Search />
       <Projects projects={projects} />
       {page.faq && <Faq section={page.faq} />}

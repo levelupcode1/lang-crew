@@ -1,0 +1,6 @@
+uuid,name,title,description,url,category,status,created_at
+650e8400-e29b-41d4-a716-446655440001,open-mcp,OpenMCP,웹 API를 10초 만에 MCP 서버로 전환하고 오픈 소스 레지스트리에 추가하세요: https://open-mcp.org,https://github.com/wegotdocs/open-mcp,aggregators,active,NOW()
+650e8400-e29b-41d4-a716-446655440002,mcgravity,tigranbs/mcgravity,여러 MCP 서버를 단일 연결 포인트로 통합하여 프록시하는 도구로 요청 부하를 분산하여 AI 도구를 확장합니다.,https://github.com/krayniok/mcgravity,aggregators,active,NOW()
+650e8400-e29b-41d4-a716-446655440003,metamcp,MetaMCP,MetaMCP는 GUI를 통해 MCP 연결을 관리하는 통합 미들웨어 MCP 서버입니다.,https://github.com/metatool-ai/metatool-app,aggregators,active,NOW()
+650e8400-e29b-41d4-a716-446655440004,mcp-access-point,MCP Access Point,서버 측 코드를 변경하지 않고 한 번의 클릭으로 웹 API를 MCP 서버로 변환합니다.,https://github.com/sxhxliang/mcp-access-point,aggregators,active,NOW()
+650e8400-e29b-41d4-a716-446655440005,imagen3-mcp,hamflx/imagen3-mcp,MCP를 통해 Google의 Imagen 3.0 API를 사용하는 강력한 이미지 생성 도구. 고급 사진 예술 및 사실적인 컨트롤로 텍스트 프롬프트에서 고품질 이미지를 생성합니다.,https://github.com/hamflx/imagen3-mcp,aggregators,active,NOW() 

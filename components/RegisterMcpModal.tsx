@@ -98,128 +98,101 @@ export default function RegisterMcpModal({ isOpen, onClose, onSubmit }: Register
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="card w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-2xl font-bold mb-4">MCP 서버 등록</h2>
-        
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              서버 이름 (고유값) *
-            </label>
+            <label className="label">서버 이름 (고유값) *</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="input"
               placeholder="mcp-server-name"
             />
-            <p className="text-xs text-gray-500 mt-1">영문, 숫자, 하이픈만 사용 가능합니다.</p>
+            <p className="text-xs text-muted mt-1">영문, 숫자, 하이픈만 사용 가능합니다.</p>
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              서버 제목 *
-            </label>
+            <label className="label">서버 제목 *</label>
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="input"
               placeholder="MCP 파일 검색 서버"
             />
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              설명 *
-            </label>
+            <label className="label">설명 *</label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
               required
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="input"
               placeholder="MCP 서버에 대한 간단한 설명을 입력하세요."
             />
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              서버 구성 (Cursor SSE 형식) *
-            </label>
-            <div className="bg-gray-100 p-2 rounded-t-md border-t border-l border-r border-gray-300">
-              <code className="text-xs text-gray-700">JSON 형식으로 서버 구성을 입력하세요</code>
-            </div>
+            <label className="label">서버 구성 (Cursor SSE 형식) *</label>
             <textarea
               value={serverConfig}
               onChange={handleConfigChange}
               required
               rows={8}
-              className="w-full px-3 py-2 border border-gray-300 rounded-b-md font-mono text-sm"
+              className="input font-mono text-sm"
               placeholder='{"server-name": {"url": "http://localhost:3000/sse", "env": {"API_KEY": "value"}}}'
             />
-            <p className="text-xs text-gray-500 mt-1">유효한 JSON 형식이어야 합니다. 이 정보는 서버 연결에 필수적입니다.</p>
+            <p className="text-xs text-muted mt-1">유효한 JSON 형식이어야 합니다. 이 정보는 서버 연결에 필수적입니다.</p>
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              저장소 URL *
-            </label>
+            <label className="label">저장소 URL *</label>
             <input
               type="url"
               name="url"
               value={formData.url}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="input"
               placeholder="https://github.com/username/repo"
             />
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              작성자 이름
-            </label>
+            <label className="label">작성자 이름</label>
             <input
               type="text"
               name="author_name"
               value={formData.author_name}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="input"
               placeholder="작성자 이름"
             />
           </div>
-
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              태그
-            </label>
+            <label className="label">태그</label>
             <input
               type="text"
               name="tags"
               value={formData.tags}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="input"
               placeholder="태그1,태그2,태그3 (쉼표로 구분)"
             />
           </div>
-
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              카테고리 *
-            </label>
+            <label className="label">카테고리 *</label>
             <select
               name="category"
               value={formData.category}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="input"
             >
               <option value="file-systems">파일 시스템</option>
               <option value="developer-tools">개발자 도구</option>
@@ -231,19 +204,18 @@ export default function RegisterMcpModal({ isOpen, onClose, onSubmit }: Register
               <option value="communication">커뮤니케이션</option>
             </select>
           </div>
-
           <div className="flex justify-end space-x-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700"
+              className="button-secondary"
               disabled={isLoading}
             >
               취소
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-primary text-white rounded-md"
+              className="button-primary"
               disabled={isLoading}
             >
               {isLoading ? '등록 중...' : '등록하기'}

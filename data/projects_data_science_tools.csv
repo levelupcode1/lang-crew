@@ -1,0 +1,4 @@
+uuid,name,title,description,url,category,status,created_at
+39f41268-b995-49b1-8dbe-2ee3b2f5b8e4,ChronulusAI-chronulus-mcp,ChronulusAI/chronulus-mcp,Chronulus AI 예측 및 예측 에이전트로 무엇이든 예측하세요.,https://github.com/ChronulusAI/chronulus-mcp,data_science_tools,active,NOW()
+05826f0e-3979-4f24-b482-c2c00a984d60,zcaceres-markdownify-mcp,zcaceres/markdownify-mcp,거의 모든 파일이나 웹 콘텐츠를 마크다운으로 변환하는 MCP 서버,https://github.com/zcaceres/markdownify-mcp,data_science_tools,active,NOW()
+0ed8a796-c302-434a-b7e7-1b2162ddd0ca,reading-plus-ai-mcp-server-data-exploration,@reading-plus-ai/mcp-server-data-exploration,.csv 기반 데이터셋에 대한 자율적인 데이터 탐색을 가능하게 하여 최소한의 노력으로 지능적인 통찰력 제공.,https://github.com/reading-plus-ai/mcp-server-data-exploration,data_science_tools,active,NOW()

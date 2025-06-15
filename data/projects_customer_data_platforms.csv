@@ -1,0 +1,6 @@
+uuid,name,title,description,url,category,status,created_at
+432d2545-4d62-4d81-871d-b4d1aa164132,sergehuber-inoyu-mcp-unomi-server,sergehuber/inoyu-mcp-unomi-server,Apache Unomi CDP 서버의 프로필에 접근하고 업데이트하는 MCP 서버.,https://github.com/sergehuber/inoyu-mcp-unomi-server,customer_data_platforms,active,NOW()
+1ccf9240-58d9-40c8-a8c8-c748f476f49c,OpenDataMCP-OpenDataMCP,OpenDataMCP/OpenDataMCP,모델 컨텍스트 프로토콜을 사용하여 모든 개방형 데이터를 모든 LLM에 연결합니다.,https://github.com/OpenDataMCP/OpenDataMCP,customer_data_platforms,active,NOW()
+68a5ef31-76a5-4c52-87b2-358ee59cedba,tinybirdco-mcp-tinybird,tinybirdco/mcp-tinybird,모든 MCP 클라이언트에서 Tinybird 워크스페이스와 상호 작용하기 위한 MCP 서버.,https://github.com/tinybirdco/mcp-tinybird,customer_data_platforms,active,NOW()
+7578531e-1b5c-4203-9f66-1152df57e9c3,iaptic-mcp-server-iaptic,@iaptic/mcp-server-iaptic,"[iaptic](https://www.iaptic.com)과 연결하여 고객 구매, 거래 데이터 및 앱 수익 통계에 대해 질문합니다.",https://github.com/iaptic/mcp-server-iaptic,customer_data_platforms,active,NOW()
+399decc8-56f4-45d0-84c4-60967a5462f8,antv-mcp-server-chart,@antv/mcp-server-chart,[AntV](https://github.com/antvis) 를 기반으로 데이터 시각화 차트를 생성하는 MCP Server 플러그인.,https://github.com/antvis/mcp-server-chart,customer_data_platforms,active,NOW()

@@ -1,0 +1,5 @@
+uuid,name,title,description,url,category,status,created_at
+1f0eb42f-2d06-4977-9cee-5fa711571a42,cantian-ai-bazi-mcp,cantian-ai/bazi-mcp,포괄적이고 정확한 사주팔자(八字) 분석과 해석 제공,https://github.com/cantian-ai/bazi-mcp,art_and_culture,active,NOW()
+bd890a5a-777c-4017-8016-91ff80f5ed21,burningion-video-editing-mcp,burningion/video-editing-mcp,"Video Jungle 컬렉션에서 비디오 편집 추가, 분석, 검색 및 생성",https://github.com/burningion/video-editing-mcp,art_and_culture,active,NOW()
+732c1569-f1d7-480f-a537-2abe947fda6f,r-huijts-rijksmuseum-mcp,r-huijts/rijksmuseum-mcp,"작품 검색, 세부 정보 및 컬렉션을 위한 Rijksmuseum API 통합",https://github.com/r-huijts/rijksmuseum-mcp,art_and_culture,active,NOW()
+a7d1d63a-132e-4399-b574-83f62758fb07,yuna0x0-anilist-mcp,yuna0x0/anilist-mcp,애니메이션 및 만화 정보를 위한 AniList API를 통합하는 MCP 서버,https://github.com/yuna0x0/anilist-mcp,art_and_culture,active,NOW()

@@ -1,0 +1,2 @@
+uuid,name,title,description,url,category,status,created_at
+f26bb132-6010-4684-84d1-676162a2d844,Open Strategy Partners 마케팅 도구,Open Strategy Partners 마케팅 도구,"글쓰기 스타일, 편집 코드, 제품 마케팅 가치 맵 생성을 포함한 Open Strategy Partners의 마케팅 도구 모음.",https://github.com/open-strategy-partners/osp_marketing_tools,marketing,active,NOW()

@@ -1,0 +1,5 @@
+uuid,name,title,description,url,category,status,created_at
+d402e54d-1c6a-4438-8b8c-3fbd813f5c96,Airbnb MCP 서버,Airbnb MCP 서버,Airbnb 검색 및 숙소 세부 정보 가져오기 도구 제공.,https://github.com/openbnb-org/mcp-server-airbnb,travel_and_transportation,active,NOW()
+6f52fe77-a263-4a11-81de-66f44e991e97,NS 여행 정보 MCP 서버,NS 여행 정보 MCP 서버,"네덜란드 철도(NS) 여행 정보, 일정 및 실시간 업데이트 접근",https://github.com/r-huijts/ns-mcp-server,travel_and_transportation,active,NOW()
+786602fc-5bd7-4fc9-9f2c-4f87d24217ef,KyrieTangSheng-mcp-server-nationalparks,KyrieTangSheng/mcp-server-nationalparks,"미국 국립 공원의 공원 세부 정보, 경고, 방문자 센터, 캠프장 및 이벤트에 대한 최신 정보를 제공하는 국립 공원 서비스 API 통합",https://github.com/KyrieTangSheng/mcp-server-nationalparks,travel_and_transportation,active,NOW()
+b3602dab-c054-4b01-b931-6b3b0c2e528d,pab1it0-tripadvisor-mcp,pab1it0/tripadvisor-mcp,"LLM이 Tripadvisor API와 상호 작용할 수 있게 하는 MCP 서버로, 표준화된 MCP 인터페이스를 통해 위치 데이터, 리뷰 및 사진 지원",https://github.com/pab1it0/tripadvisor-mcp,travel_and_transportation,active,NOW()

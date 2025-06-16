@@ -6,10 +6,11 @@ import { FaDownload, FaUpload } from "react-icons/fa";
 
 import DropDown from "./dropdown";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RegisterMcpModal from "@/components/RegisterMcpModal";
 import ServerManageModal from "@/components/ServerManageModal";
 import { Project } from "@/types/project";
+import { createClient } from '@supabase/supabase-js';
 
 export default ({ header }: { header: Header }) => {
   const pathname = usePathname();
@@ -37,6 +38,19 @@ export default ({ header }: { header: Header }) => {
     return response.json();
   };
 
+  // 한글 주석: Supabase 클라이언트 생성 (프론트엔드)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  // 한글 주석: 구글 로그인 함수 (Supabase OAuth)
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+    if (error) {
+      alert('구글 로그인 실패: ' + error.message);
+    }
+  };
+
   return (
     <header className="mx-auto w-full max-w-7xl px-4 md:px-8 mt-4 md:mt-4">
       <div className="flex items-center">
@@ -53,7 +67,7 @@ export default ({ header }: { header: Header }) => {
 
         <div className="flex-1">
           <ul className="md:flex float-right flex text-lg text-slate-700 mr-4 items-center">
-            {header?.nav?.items?.map((item: Item, idx: number) => {
+            {header?.nav?.items?.filter((item: Item) => !["Submit", "Telegram", "Discord"].includes(item.title)).map((item: Item, idx: number) => {
               return (
                 <li className="mx-4 hidden md:block" key={idx}>
                   <a
@@ -70,7 +84,22 @@ export default ({ header }: { header: Header }) => {
                 </li>
               );
             })}
-            
+            {/* Submit, Telegram, Discord 메뉴는 숨김 처리됨 */}
+            <li className="mx-4 hidden md:block">
+              {/* 한글 주석: 로그인/회원가입 버튼 */}
+              <button
+                onClick={handleGoogleLogin}
+                className="rounded-md bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary hover:text-white transition-colors mr-2"
+              >
+                로그인
+              </button>
+              <button
+                onClick={handleGoogleLogin}
+                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+              >
+                회원가입
+              </button>
+            </li>
             <li className="mx-4 hidden md:block">
               <button
                 onClick={openRegisterModal}

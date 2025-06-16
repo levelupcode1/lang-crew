@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "LangCrew",
-    "description": "한국 최대의 MCP 서버 모음집. 다양한 MCP 크루를 검색하고 발견하여 AI 활용 능력을 높이세요.",
+    "description": "한국 최대의 MCP 서버 모음. 다양한 MCP 크루를 검색하고 발견하여 AI 활용 능력을 높이세요.",
     "keywords": "LangCrew, 언어 크루, AI, 한국, 언어 서버"
   },
   "header": {
@@ -18,16 +18,6 @@
           "title": "카테고리",
           "url": "/categories",
           "target": "_self"
-        },
-        {
-          "title": "텔레그램",
-          "url": "https://t.me/+N0gv4O9SXio2YWU1",
-          "target": "_blank"
-        },
-        {
-          "title": "디스코드",
-          "url": "https://discord.gg/RsYPRrnyqg",
-          "target": "_blank"
         }
       ]
     }
@@ -63,11 +53,6 @@
     ]
   },
   "footer": {
-    "brand": {
-      "title": "LangCrew",
-      "description": "한국 최대의 MCP 서버 모음집, 다양한 AI/언어 커뮤니티를 한 곳에서!",
-      "domain": "https://langcrew.kr"
-    },
     "copyright": {
       "owner": "langcrew.kr",
       "text": "All rights reserved",

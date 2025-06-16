@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "title": "MCP Servers",
+    "title": "LangCrew",
     "description": "The largest collection of MCP Servers, including Awesome MCP Servers and Claude MCP integration. Search and discover MCP servers to enhance your AI capabilities.",
     "keywords": "MCP Servers, Awesome MCP Servers, Claude MCP, Model Context Protocol"
   },
   "header": {
     "brand": {
-      "title": "MCP Servers",
+      "title": "LangCrew",
       "url": "/",
       "avatar": {
         "src": "/logo.png"
@@ -15,24 +15,9 @@
     "nav": {
       "items": [
         {
-          "title": "Categories",
+          "title": "카테고리",
           "url": "/categories",
           "target": "_self"
-        },
-        {
-          "title": "Submit",
-          "url": "https://github.com/chatmcp/mcp-directory/issues/1",
-          "target": "_blank"
-        },
-        {
-          "title": "Telegram",
-          "url": "https://t.me/+N0gv4O9SXio2YWU1",
-          "target": "_blank"
-        },
-        {
-          "title": "Discord",
-          "url": "https://discord.gg/RsYPRrnyqg",
-          "target": "_blank"
         }
       ]
     }
@@ -80,11 +65,6 @@
     ]
   },
   "footer": {
-    "brand": {
-      "title": "MCP Servers",
-      "description": "The largest collection of MCP Servers, featuring Awesome MCP Servers and Claude MCP integration.",
-      "domain": "https://langcrew.kr"
-    },
     "copyright": {
       "owner": "langcrew.kr",
       "text": "All rights reserved",

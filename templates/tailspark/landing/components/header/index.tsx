@@ -67,12 +67,12 @@ export default ({ header }: { header: Header }) => {
 
         <div className="flex-1">
           <ul className="md:flex float-right flex text-lg text-slate-700 mr-4 items-center">
-            {header?.nav?.items?.filter((item: Item) => !["Submit", "Telegram", "Discord"].includes(item.title)).map((item: Item, idx: number) => {
+            {header?.nav?.items?.map((item: Item, idx: number) => {
               return (
                 <li className="mx-4 hidden md:block" key={idx}>
                   <a
-                    href={item.url}
-                    target={item.target}
+                    href={typeof item.url === 'string' ? item.url : ''}
+                    target={typeof item.target === 'string' ? item.target : ''}
                     className={
                       pathname === item.url
                         ? "text-[#2752f4]"

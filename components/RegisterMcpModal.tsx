@@ -1,34 +1,14 @@
-/**
- * Copyright 2024 sungryeong lee
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- * GitHub: https://github.com/sungreong
- * Email: leesungreong@gmail.com
- */
-
 "use client";
 
 import { useState } from 'react';
 import { Project } from '@/types/project';
+import { createPortal } from 'react-dom';
 
-interface RegisterMcpModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface RegisterMcpPageProps {
   onSubmit: (project: Project) => Promise<void>;
 }
 
-export default function RegisterMcpModal({ isOpen, onClose, onSubmit }: RegisterMcpModalProps) {
+export default function RegisterMcpPage({ onSubmit }: RegisterMcpPageProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<Partial<Project>>({
     name: '',
@@ -86,7 +66,7 @@ export default function RegisterMcpModal({ isOpen, onClose, onSubmit }: Register
       } as Project;
       
       await onSubmit(projectData);
-      onClose();
+      // 한글 주석: 등록 후 이동 등 추가 처리 필요시 여기에 작성
     } catch (error) {
       console.error('등록 중 오류 발생:', error);
       alert('서버 등록 중 오류가 발생했습니다.');
@@ -95,11 +75,10 @@ export default function RegisterMcpModal({ isOpen, onClose, onSubmit }: Register
     }
   };
 
-  if (!isOpen) return null;
-
+  // 한글 주석: 전체 페이지로 렌더링
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="card w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4">
+      <div className="card w-full max-w-2xl max-h-[90vh] overflow-y-auto z-50">
         <h2 className="text-2xl font-bold mb-4">MCP 서버 등록</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -205,14 +184,6 @@ export default function RegisterMcpModal({ isOpen, onClose, onSubmit }: Register
             </select>
           </div>
           <div className="flex justify-end space-x-3">
-            <button
-              type="button"
-              onClick={onClose}
-              className="button-secondary"
-              disabled={isLoading}
-            >
-              취소
-            </button>
             <button
               type="submit"
               className="button-primary"

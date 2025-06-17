@@ -15,6 +15,7 @@ export default ({ project }: { project: Project }) => {
       }
       target={project.target || "_self"}
     >
+      {/* 한글 주석: 카드 높이와 레이아웃을 일정하게 맞추기 위해 min-h, flex, justify-between 적용 */}
       <div className="mb-6 gap-6 overflow-hidden rounded-2xl border border-solid border-[#7e7e7e] bg-white p-8 text-left min-h-[340px] flex flex-col justify-between">
         <div>
           <div className="mb-4 flex flex-row">

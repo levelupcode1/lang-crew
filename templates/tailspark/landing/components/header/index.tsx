@@ -5,15 +5,34 @@ import { Header, Item } from "@/types/landing";
 import { FaDownload, FaUpload } from "react-icons/fa";
 
 import DropDown from "./dropdown";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import RegisterMcpModal from "@/components/RegisterMcpModal";
 import ServerManageModal from "@/components/ServerManageModal";
 import { Project } from "@/types/project";
-import { createClient } from '@supabase/supabase-js';
+import { initializeApp, getApps } from 'firebase/app';
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+
+// firebase config 환경변수에서 불러오기
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+};
+
+// firebase 초기화 (중복 방지)
+if (!getApps().length) {
+  initializeApp(firebaseConfig);
+}
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
 
 export default ({ header }: { header: Header }) => {
   const pathname = usePathname();
+  const router = useRouter();
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isServerManageModalOpen, setIsServerManageModalOpen] = useState(false);
 
@@ -38,28 +57,47 @@ export default ({ header }: { header: Header }) => {
     return response.json();
   };
 
-  // 한글 주석: Supabase 클라이언트 생성 (프론트엔드)
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  // 한글 주석: 구글 로그인 함수 (Supabase OAuth)
+  // 한글 주석: 구글 로그인 함수 (Firebase Auth)
   const handleGoogleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-    if (error) {
+    try {
+      await signInWithPopup(auth, provider);
+      // 로그인 성공 시 상태 자동 반영
+    } catch (error: any) {
       alert('구글 로그인 실패: ' + error.message);
     }
   };
+
+  // 한글 주석: 로그아웃 함수
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // 로그아웃 성공 시 상태 자동 반영
+    } catch (error: any) {
+      alert('로그아웃 실패: ' + error.message);
+    }
+  };
+
+  // 한글 주석: 사용자 상태 관리 (반드시 함수 컴포넌트 내부에서 선언)
+  const [user, setUser] = useState<any>(null);
+
+  // 한글 주석: 인증 상태 변화 감지 (반드시 함수 컴포넌트 내부에서 선언)
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      setUser(firebaseUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <header className="mx-auto w-full max-w-7xl px-4 md:px-8 mt-4 md:mt-4">
       <div className="flex items-center">
         <p className="text-lg md:text-3xl font-medium ">
+          {/* 한글 주석: 로고 이미지를 LangCrew 텍스트로 변경 */}
           <a
             className="flex items-center bg-cover bg-center py-3 px-2 md:py-4 m text-primary cursor-pointer font-bold"
             href={header?.brand?.url}
           >
-           <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
               LangCrew
             </span>
           </a>
@@ -86,23 +124,37 @@ export default ({ header }: { header: Header }) => {
             })}
             {/* Submit, Telegram, Discord 메뉴는 숨김 처리됨 */}
             <li className="mx-4 hidden md:block">
-              {/* 한글 주석: 로그인/회원가입 버튼 */}
-              <button
-                onClick={handleGoogleLogin}
-                className="rounded-md bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary hover:text-white transition-colors mr-2"
-              >
-                로그인
-              </button>
-              <button
-                onClick={handleGoogleLogin}
-                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
-              >
-                회원가입
-              </button>
+              {/* 한글 주석: 로그인/회원가입 또는 사용자 정보/로그아웃 버튼 */}
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-700 font-semibold">{user.email}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors"
+                  >
+                    로그아웃
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <button
+                    onClick={handleGoogleLogin}
+                    className="rounded-md bg-white border border-primary text-primary px-4 py-2 text-sm font-medium hover:bg-primary hover:text-white transition-colors mr-2"
+                  >
+                    로그인
+                  </button>
+                  <button
+                    onClick={handleGoogleLogin}
+                    className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  >
+                    회원가입
+                  </button>
+                </>
+              )}
             </li>
             <li className="mx-4 hidden md:block">
               <button
-                onClick={openRegisterModal}
+                onClick={() => router.push('/register-mcp')}
                 className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white"
               >
                 서버 등록
@@ -110,7 +162,7 @@ export default ({ header }: { header: Header }) => {
             </li>
             <li className="mx-4 hidden md:block">
               <button
-                onClick={openServerManageModal}
+                onClick={() => router.push('/server-manage')}
                 className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white flex items-center"
               >
                 <FaDownload className="mr-1" /> 서버 관리
@@ -149,18 +201,11 @@ export default ({ header }: { header: Header }) => {
         </div> */}
       </div>
 
-      {/* MCP 서버 등록 모달 */}
-      <RegisterMcpModal
-        isOpen={isRegisterModalOpen}
-        onClose={closeRegisterModal}
-        onSubmit={handleSubmitProject}
-      />
-
       {/* 서버 관리 모달 */}
-      <ServerManageModal
+      {/* <ServerManageModal
         isOpen={isServerManageModalOpen}
         onClose={closeServerManageModal}
-      />
+      /> */}
     </header>
   );
 };

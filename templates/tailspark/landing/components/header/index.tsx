@@ -194,11 +194,15 @@ export default ({ header }: { header: Header }) => {
 
         <div className="ml:0 md:ml-8 hidden md:block">
           <a href="/dashboard/my-gpts">Dashboard</a>
-        </div>
+        </div> */}
 
         <div className="md:hidden">
-          <DropDown />
-        </div> */}
+          <DropDown
+            user={user}
+            handleGoogleLogin={handleGoogleLogin}
+            handleLogout={handleLogout}
+          />
+        </div>
       </div>
 
       {/* 서버 관리 모달 */}

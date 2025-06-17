@@ -1,13 +1,19 @@
 import { Menu, Transition } from "@headlessui/react";
-
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
+import { useRouter } from "next/navigation";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default () => {
+// 한글 주석: DropDown 컴포넌트가 user, 로그인/로그아웃 핸들러, router를 props로 받도록 수정
+export default function DropDown({ user, handleGoogleLogin, handleLogout }: {
+  user: any;
+  handleGoogleLogin: () => void;
+  handleLogout: () => void;
+}) {
+  const router = useRouter();
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -28,70 +34,62 @@ export default () => {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
+            {/* 한글 주석: 로그인/로그아웃 메뉴 */}
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/pricing"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Pricing
-                </a>
+                user ? (
+                  <a
+                    href="#"
+                    onClick={e => { e.preventDefault(); handleLogout(); }}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm w-full text-left"
+                    )}
+                  >
+                    {/* 한글 주석: 로그아웃 클릭 시 handleLogout 실행 */}
+                    로그아웃
+                  </a>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={e => { e.preventDefault(); handleGoogleLogin(); }}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm w-full text-left"
+                    )}
+                  >
+                    {/* 한글 주석: 구글로 로그인 클릭 시 handleGoogleLogin 실행 */}
+                    구글로 로그인
+                  </a>
+                )
               )}
             </Menu.Item>
+            {/* 한글 주석: 카테고리 메뉴 */}
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/feed"
+                <button
+                  onClick={() => router.push('/categories')}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm w-full text-left"
                   )}
                 >
-                  Feed
-                </a>
+                  카테고리
+                </button>
               )}
             </Menu.Item>
+            {/* 한글 주석: 서버 등록 메뉴 */}
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="/extension"
+                <button
+                  onClick={() => router.push('/register-mcp')}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                    "block px-4 py-2 text-sm w-full text-left"
                   )}
                 >
-                  Extension
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="https://chat.openai.com/g/g-EBKM6RsBl-gpts-works"
-                  target="_blank"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  GPTs
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/dashboard/my-gpts"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Dashboard
-                </a>
+                  서버 등록
+                </button>
               )}
             </Menu.Item>
           </div>
@@ -99,4 +97,4 @@ export default () => {
       </Transition>
     </Menu>
   );
-};
+}

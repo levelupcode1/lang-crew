@@ -27,7 +27,7 @@ export default ({
   const tagsArr = project.tags ? project.tags.split(",") : [];
   const [isCopied, setIsCopied] = useState(false);
   const [commentInput, setCommentInput] = useState("");
-  const [comments, setComments] = useState<{ text: string; date: Date }[]>([]);
+  const [comments, setComments] = useState<{ text: string; created_at?: string; date?: Date }[]>([]);
   const [likeCount, setLikeCount] = useState(0);
   const [liked, setLiked] = useState(false);
 
@@ -289,8 +289,11 @@ export default ({
                     <div key={idx} className="mb-4 p-3 bg-white rounded border">
                       <div className="text-sm text-gray-700 mb-1">{c.text}</div>
                       <div className="text-xs text-gray-400">
+                        {/* 한글 주석: created_at이 있으면 Date로 변환, 없으면 date(Date 객체) 사용 */}
                         {c.created_at
                           ? new Date(c.created_at).toLocaleString()
+                          : c.date
+                          ? c.date.toLocaleString()
                           : ""}
                       </div>
                     </div>
